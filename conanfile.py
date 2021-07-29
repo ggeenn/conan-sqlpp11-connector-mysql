@@ -3,7 +3,7 @@ from conans.tools import replace_in_file
 
 class sqlpp11Conan(ConanFile):
     name = 'sqlpp11-connector-mysql'
-    version = '1.0'
+    version = '1.1'
     license = 'BSD'
     author = 'Gennadii Marianychenko<argent.genesis@gmail.com>'
     url = 'https://github.com/ggeenn/conan-sqlpp11-connector-mysql.git'
@@ -11,7 +11,7 @@ class sqlpp11Conan(ConanFile):
     generators = 'cmake'
     settings = 'os', 'compiler', 'build_type', 'arch'
     short_paths = True
-    requires = "sqlpp11/0.60", "date/3.0.0", "libmysqlclient/8.0.17", "openssl/1.1.1k"
+    requires = "sqlpp11/0.59", "libmysqlclient/8.0.17", "openssl/1.1.1k"
 
     def source(self):
         self.run('git clone https://github.com/rbock/sqlpp11')
@@ -19,9 +19,9 @@ class sqlpp11Conan(ConanFile):
         self.run('git clone https://github.com/howardhinnant/date')
         replace_in_file(
             'sqlpp11-connector-mysql/CMakeLists.txt',
-            'project (sqlpp11-connector-mysql)',
+            'set(CMAKE_CXX_STANDARD 11)',
             '''
-project (sqlpp11-connector-mysql)
+set(CMAKE_CXX_STANDARD 11)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 '''
